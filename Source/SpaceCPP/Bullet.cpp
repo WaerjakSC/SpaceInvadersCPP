@@ -17,7 +17,7 @@ ABullet::ABullet()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	USphereComponent* BulletComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
-	BulletComponent->InitSphereRadius(20.0f);
+	BulletComponent->InitSphereRadius(40.0f);
 	RootComponent = BulletComponent;
 	BulletComponent->bGenerateOverlapEvents = true;
 	BulletComponent->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnOverlap);
@@ -25,13 +25,6 @@ ABullet::ABullet()
 
 	BulletVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Visual Representation"));
 	BulletVisual->SetupAttachment(RootComponent);
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> BulletVisualAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
-	if (BulletVisualAsset.Succeeded())
-	{
-		BulletVisual->SetStaticMesh(BulletVisualAsset.Object);
-		BulletVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -20.0f));
-		BulletVisual->SetWorldScale3D(FVector(0.4f));
-	}
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectileMovement->UpdatedComponent = RootComponent;

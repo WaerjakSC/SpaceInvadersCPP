@@ -5,7 +5,7 @@
 #include "Invader.h"
 #include "CharMovementComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
@@ -25,15 +25,9 @@ ACharPawn::ACharPawn()
 	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ACharPawn::OnOverlap);
 
 
-	CapsuleVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Visual Representation"));
-	CapsuleVisual->SetupAttachment(RootComponent);
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> CapsuleVisualAsset(TEXT("/Game/StarterContent/Shapes/Shape_NarrowCapsule.Shape_NarrowCapsule"));
-	if (CapsuleVisualAsset.Succeeded())
-	{
-		CapsuleVisual->SetStaticMesh(CapsuleVisualAsset.Object);
-		CapsuleVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -88.0f));
-		CapsuleVisual->SetWorldScale3D(FVector(2.f));
-	}
+	CharacterVisual = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Visual Representation"));
+	CharacterVisual->SetupAttachment(RootComponent);
+	
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 

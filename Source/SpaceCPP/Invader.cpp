@@ -3,7 +3,7 @@
 #include "Invader.h"
 #include "SpaceCPP_GameModeBase.h"
 #include "Components/SphereComponent.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "UOBject/ConstructorHelpers.h"
 #include "Public/TimerManager.h"
 #include "Engine/World.h"
@@ -20,15 +20,8 @@ AInvader::AInvader()
 	InvaderComponent->bGenerateOverlapEvents = true;
 	RootComponent = InvaderComponent;
 
-	InvaderVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Visual Representation"));
+	InvaderVisual = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Visual Representation"));
 	InvaderVisual->SetupAttachment(RootComponent);
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> InvaderVisualAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
-	if (InvaderVisualAsset.Succeeded())
-	{
-		InvaderVisual->SetStaticMesh(InvaderVisualAsset.Object);
-		InvaderVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -60.0f));
-		InvaderVisual->SetWorldScale3D(FVector(1.2f));
-	}
 }
 
 // Called when the game starts or when spawned
