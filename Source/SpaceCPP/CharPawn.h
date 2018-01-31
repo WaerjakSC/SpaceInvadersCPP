@@ -35,7 +35,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Variables")
-		int Ammo = 65;
+		int Ammo = 100;
 
 	virtual UPawnMovementComponent* GetMovementComponent() const override;
 

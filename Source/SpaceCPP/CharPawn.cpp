@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Invader.h"
 #include "CharMovementComponent.h"
+#include "SpaceController.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -47,6 +48,7 @@ void ACharPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+
 	{
 		if (!MovementInput.IsZero())
 		{
@@ -56,6 +58,20 @@ void ACharPawn::Tick(float DeltaTime)
 			NewLocation += GetActorRightVector() * MovementInput.Y * DeltaTime;
 			SetActorLocation(NewLocation);
 		}
+	}
+	if (Controller != NULL)
+	{
+
+		FVector mouseLocation, mouseDirection;
+		ASpaceController* playerController = (ASpaceController*)GetWorld()->GetFirstPlayerController();
+		playerController->DeprojectMousePositionToWorld(mouseLocation, mouseDirection);
+
+		FRotator currentCharacterRotation = this->GetActorRotation();
+		FRotator targetRotation = mouseDirection.Rotation();
+
+		FRotator newRotation = FRotator(currentCharacterRotation.Pitch, targetRotation.Yaw, currentCharacterRotation.Roll);
+		this->SetActorRotation(newRotation);
+
 	}
 }
 
