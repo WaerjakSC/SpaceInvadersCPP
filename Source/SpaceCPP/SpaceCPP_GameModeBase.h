@@ -21,7 +21,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "HUD")
 		int NumEnemies;
 
-	int RepeatingCallsRemaining = 4;
+	int RepeatingCallsRemaining = 2;
 
 	FTimerHandle SpawnStagger;
 

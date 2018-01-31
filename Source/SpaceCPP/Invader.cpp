@@ -3,7 +3,7 @@
 #include "Invader.h"
 #include "SpaceCPP_GameModeBase.h"
 #include "Components/SphereComponent.h"
-#include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "UOBject/ConstructorHelpers.h"
 #include "Public/TimerManager.h"
 #include "Engine/World.h"
@@ -20,7 +20,7 @@ AInvader::AInvader()
 	InvaderComponent->bGenerateOverlapEvents = true;
 	RootComponent = InvaderComponent;
 
-	InvaderVisual = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Visual Representation"));
+	InvaderVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Visual Representation"));
 	InvaderVisual->SetupAttachment(RootComponent);
 }
 

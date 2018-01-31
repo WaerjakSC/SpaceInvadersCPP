@@ -5,7 +5,7 @@
 #include "Invader.h"
 #include "CharMovementComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
@@ -18,17 +18,16 @@ ACharPawn::ACharPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	UCapsuleComponent* CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("RootComponent"));
-	CapsuleComponent->InitCapsuleSize(34.0f, 88.0f);
+	CapsuleComponent->InitCapsuleSize(44.0f, 88.0f);
 	RootComponent = CapsuleComponent;
-	//CapsuleComponent->BodyInstance.SetCollisionProfileName("SpaceInvader");
+	// CapsuleComponent->BodyInstance.SetCollisionProfileName("SpaceInvader");
 	CapsuleComponent->bGenerateOverlapEvents = true;
 	CapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &ACharPawn::OnOverlap);
 
 
-	CharacterVisual = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Visual Representation"));
-	CharacterVisual->SetupAttachment(RootComponent);
+	CapsuleVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Visual Representation"));
+	CapsuleVisual->SetupAttachment(RootComponent);
 	
-
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 	MyMovementComponent = CreateDefaultSubobject<UCharMovementComponent>(TEXT("CustomMovementComponent"));

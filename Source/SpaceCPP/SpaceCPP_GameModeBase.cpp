@@ -17,7 +17,7 @@ ASpaceCPP_GameModeBase::ASpaceCPP_GameModeBase()
 
 void ASpaceCPP_GameModeBase::BeginPlay() {
 
-	GetWorldTimerManager().SetTimer(SpawnStagger, this, &ASpaceCPP_GameModeBase::RepeatingFunction, 10.0f, true, 0.0f);
+	GetWorldTimerManager().SetTimer(SpawnStagger, this, &ASpaceCPP_GameModeBase::RepeatingFunction, 15.0f, true, 0.0f);
 }
 void ASpaceCPP_GameModeBase::RepeatingFunction()
 {
@@ -28,13 +28,17 @@ void ASpaceCPP_GameModeBase::RepeatingFunction()
 			UE_LOG(LogTemp, Warning, TEXT("Timer cleared."))
 		}
 	UWorld * const World = GetWorld();
-	if (World && RepeatingCallsRemaining < 5)
+	if (World)
 	{
-		for (int i{ 1 }; i < 9; i++)
+		for (int j{ 0 }; j < 2; j++)
 		{
-			FVector Location = FVector((FirstSpawnLocation.X - DistanceBetweenEnemies), (FirstSpawnLocation.Y + i * DistanceBetweenWaves), 70.f);
-			World->SpawnActor<AInvader>(Invader, Location, FRotator::ZeroRotator);
-			NumEnemies++;
+			for (int i{ 1 }; i < 9; i++)
+			{
+				FVector Location = FVector((FirstSpawnLocation.X - j * DistanceBetweenEnemies), (FirstSpawnLocation.Y + i * DistanceBetweenWaves), 70.f);
+				World->SpawnActor<AInvader>(Invader, Location, FRotator::ZeroRotator);
+				NumEnemies++;
+			}
 		}
+
 	}
 }

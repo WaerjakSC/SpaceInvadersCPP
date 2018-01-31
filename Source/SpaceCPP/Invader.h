@@ -17,7 +17,7 @@ public:
 	AInvader();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		USkeletalMeshComponent* InvaderVisual;
+		UStaticMeshComponent* InvaderVisual;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
